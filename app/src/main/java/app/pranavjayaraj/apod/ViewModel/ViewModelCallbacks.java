@@ -1,11 +1,12 @@
 package app.pranavjayaraj.apod.ViewModel;
 
 /**
- * Created by kuttanz on 10/9/19.
+ * Created by Pranav.
  */
 
 
-public interface ViewModelCallbacks {
+public interface ViewModelCallbacks
+{
 
     void onResponse(String message);
 

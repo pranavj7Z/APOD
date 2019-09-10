@@ -4,14 +4,12 @@ import java.util.List;
 
 import app.pranavjayaraj.apod.Model.Image;
 import io.reactivex.Single;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
  * Created by pranav.
  */
-
 
 public interface RetrofitService {
 
