@@ -7,17 +7,23 @@ import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import java.util.List;
-
 import javax.inject.Inject;
+import app.pranavjayaraj.apod.Injection.AppModule;
+import app.pranavjayaraj.apod.Injection.DaggerAppComponent;
+import app.pranavjayaraj.apod.Injection.DatabaseModule;
+import app.pranavjayaraj.apod.Injection.NetworkModule;
+import app.pranavjayaraj.apod.Injection.RepositoryModule;
 import app.pranavjayaraj.apod.Model.Image;
 import app.pranavjayaraj.apod.Repository.Repository;
 import app.pranavjayaraj.apod.Repository.RepositoryCallbacks;
+
+import static app.pranavjayaraj.apod.Injection.DaggerAppComponent.*;
 
 /**
  * Created by Pranav.
  */
 
-public class ViewModel extends AndroidViewModel {
+public class VModel extends AndroidViewModel {
 
     @Inject
     public Repository repository;
@@ -25,10 +31,19 @@ public class ViewModel extends AndroidViewModel {
     private int mCurrentPosition;
     private boolean mHasAccessedViewPager;
 
-    public ViewModel(Application application){
+    public VModel(Application application){
         super(application);
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(application))
+                .databaseModule(new DatabaseModule())
+                .networkModule(new NetworkModule())
+                .repositoryModule(new RepositoryModule())
+                .build()
+                .inject(this);
+
         repository.clearDatabase();
     }
+
 
     public LiveData<List<Image>> getPictureList() {
         if(mPictureList == null){

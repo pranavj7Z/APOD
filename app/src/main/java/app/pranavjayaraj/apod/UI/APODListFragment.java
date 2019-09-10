@@ -20,15 +20,15 @@ import java.util.List;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import app.pranavjayaraj.apod.Model.Image;
 import app.pranavjayaraj.apod.R;
-import app.pranavjayaraj.apod.ViewModel.ViewModel;
+import app.pranavjayaraj.apod.ViewModel.VModel;
 
 /**
- * Created by kuttanz on 10/9/19.
+ * Created by Pranav on 10/9/19.
  */
 
 public class APODListFragment extends Fragment {
 
-    private ViewModel mViewModel;
+    private VModel mVModel;
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerView;
     private GridLayoutManager mGridLayoutManager;
@@ -50,23 +50,13 @@ public class APODListFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        connectActionbar();
         super.onActivityCreated(savedInstanceState);
-    }
-
-    private void connectActionbar(){
-        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setTitle(R.string.app_name);
-        actionBar.setLogo(R.mipmap.ic_launcher);
-        actionBar.setDisplayUseLogoEnabled(true);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mViewModel = ViewModelProviders.of(getActivity()).get(ViewModel.class);
+        mVModel = ViewModelProviders.of(getActivity()).get(VModel.class);
 
         View view = inflater.inflate(R.layout.fragment_apod_list, container, false);
 
@@ -80,7 +70,7 @@ public class APODListFragment extends Fragment {
     }
 
     private void connectViewModel() {
-        mViewModel.getPictureList().observe(this, new Observer<List<Image>>() {
+        mVModel.getPictureList().observe(this, new Observer<List<Image>>() {
             @Override
             public void onChanged(@Nullable List<Image> pictureList) {
                 isLoadingMoreData = false;
@@ -119,7 +109,7 @@ public class APODListFragment extends Fragment {
                 lastVisiblePosition = mGridLayoutManager.findLastCompletelyVisibleItemPosition();
 
                 if (!isLoadingMoreData && (lastVisiblePosition == (mListAdapter.getItemCount() - 1))) {
-                    mViewModel.loadMoreData(lastVisibleDate);
+                    mVModel.loadMoreData(lastVisibleDate);
 
                     isLoadingMoreData = true;
                     mProgressBar.setVisibility(View.VISIBLE);
