@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 /**
- * Created by kuttanz on 10/9/19.
+ * Created by pranav.
  */
 
 @Entity(tableName = "picture")
