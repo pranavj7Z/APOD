@@ -1,13 +1,51 @@
 package app.pranavjayaraj.apod;
 
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Fade;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
+
+
+    private android.support.v7.widget.Toolbar mToolbar;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        loadInitialData();
+
     }
+
+
+    private void loadInitialData(){
+
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("BACKSTACKTEST", ""+ getSupportFragmentManager().getBackStackEntryCount());
+        if(getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
+        }else{
+            super.onBackPressed();
+        }
+    }
+
 }
