@@ -1,4 +1,4 @@
-package app.pranavjayaraj.apod;
+package app.pranavjayaraj.apod.Repository;
 
 import android.arch.lifecycle.LiveData;
 import android.util.Log;

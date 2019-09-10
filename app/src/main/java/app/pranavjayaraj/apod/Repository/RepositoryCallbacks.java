@@ -1,4 +1,4 @@
-package app.pranavjayaraj.apod;
+package app.pranavjayaraj.apod.Repository;
 
 /**
  * Created by kuttanz on 10/9/19.
