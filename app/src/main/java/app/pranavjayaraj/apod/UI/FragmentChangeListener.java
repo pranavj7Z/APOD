@@ -9,4 +9,7 @@ import android.widget.ImageView;
 interface FragmentChangeListener {
 
     void attachDetailAPOD (int clickedPosition, ImageView sharedImageView);
+
+    void attachImageView(String url, ImageView sharedImageView);
+
 }

@@ -95,4 +95,22 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
                 .addToBackStack(TAG_PICTURE_DETAIL_FRAGMENT)
                 .commit();
     }
+
+    @Override
+    public void attachImageView(String url, ImageView sharedImageView) {
+        APODImageView apodImageView = new APODImageView();
+        apodImageView.setEnterTransition(new Fade());
+
+        Bundle args = new Bundle();
+        args.putString(APODImageView.EXTRA_KEY_IMAGE_URL,url);
+        apodImageView.setArguments(args);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container,
+                        apodImageView,
+                        APODImageView.class.getSimpleName())
+                .addToBackStack(TAG_PICTURE_LIST_FRAGMENT)
+                .commit();
+    }
 }

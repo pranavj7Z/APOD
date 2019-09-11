@@ -7,7 +7,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +51,7 @@ public class APODDetailFragment extends Fragment {
             mPosition = getArguments().getInt(EXTRA_KEY_PICTURE_POSITION);
         }
 
-
+        fragmentChangeListener = (MainActivity) getActivity();
         connectViewModel();
 
         return view;
@@ -89,7 +88,7 @@ public class APODDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String url = pictureList.get(mPosition).getUrl();
-                fragmentChangeListener.attachFullScreenFragment(url, mDetailPictureImageView);
+                fragmentChangeListener.attachImageView(url, mDetailPictureImageView);
             }
         });
     }
