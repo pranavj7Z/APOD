@@ -8,8 +8,5 @@ import android.widget.ImageView;
 
 interface FragmentChangeListener {
 
-    void attachDetailViewPager (int clickedPosition, ImageView sharedImageView);
-
-    void attachFullScreenFragment(String url, ImageView sharedImageView);
-
+    void attachDetailAPOD (int clickedPosition, ImageView sharedImageView);
 }

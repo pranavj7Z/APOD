@@ -23,10 +23,12 @@ import app.pranavjayaraj.apod.Util.NetworkUtil;
 
 public class APODListAdapter extends android.support.v7.recyclerview.extensions.ListAdapter<Image, APODListAdapter.ViewHolder> {
     private Context mContext;
+    private FragmentChangeListener mFragmentChangeListener;
 
     protected APODListAdapter(Context context, @NonNull DiffUtil.ItemCallback<Image> diffCallback) {
         super(diffCallback);
         mContext = context;
+        mFragmentChangeListener = (MainActivity) context;
     }
 
     @NonNull
@@ -40,10 +42,13 @@ public class APODListAdapter extends android.support.v7.recyclerview.extensions.
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final Image picture = getItem(i);
+        final int position = viewHolder.getAdapterPosition();
 
         viewHolder.mPictureCardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
+                mFragmentChangeListener.attachDetailAPOD(position, viewHolder.mPictureImageView);
             }
         });
 

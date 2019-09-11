@@ -5,6 +5,7 @@ import android.support.transition.Fade;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import app.pranavjayaraj.apod.R;
@@ -12,8 +13,9 @@ import app.pranavjayaraj.apod.ViewModel.VModel;
 import app.pranavjayaraj.apod.ViewModel.ViewModelCallbacks;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements FragmentChangeListener{
     private static final String TAG_PICTURE_LIST_FRAGMENT = "tag_picture_list_fragment";
+    private static final String TAG_PICTURE_DETAIL_FRAGMENT = "tag_picture_detail_fragment";
     private VModel mVModel;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -77,4 +79,20 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    @Override
+    public void attachDetailAPOD(int clickedPosition, ImageView sharedImageView)
+    {
+        APODDetailFragment apodDetailFragment = new APODDetailFragment();
+        Bundle args = new Bundle();
+        args.putInt(APODDetailFragment.EXTRA_KEY_PICTURE_POSITION,clickedPosition);
+        apodDetailFragment.setArguments(args);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container,
+                        apodDetailFragment,
+                        APODDetailFragment.class.getSimpleName())
+                .addToBackStack(TAG_PICTURE_DETAIL_FRAGMENT)
+                .commit();
+    }
 }

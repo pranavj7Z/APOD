@@ -2,11 +2,9 @@ package app.pranavjayaraj.apod.Repository;
 
 import android.arch.lifecycle.LiveData;
 import android.util.Log;
-
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
 import app.pranavjayaraj.apod.Database.AppDAO;
 import app.pranavjayaraj.apod.Model.Image;
 import app.pranavjayaraj.apod.Network.RetrofitService;
