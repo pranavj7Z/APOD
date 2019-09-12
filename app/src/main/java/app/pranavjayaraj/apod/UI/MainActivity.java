@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import app.pranavjayaraj.apod.R;
 import app.pranavjayaraj.apod.UI.ViewPager.APODViewPager;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     private static final String TAG_PICTURE_LIST_FRAGMENT = "tag_picture_list_fragment";
     private static final String TAG_PICTURE_DETAIL_FRAGMENT = "tag_picture_detail_fragment";
     private static final String TAG_VIEW_PAGER_FRAGMENT = "tag_view_pager_fragment";
+    private static final String TAG_SPLASH_SCREEN_FRAGMENT = "tag_splash_screen_fragment";
 
     private VModel mVModel;
     @Override
@@ -27,6 +29,15 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         setContentView(R.layout.activity_main);
         mVModel = ViewModelProviders.of(this).get(VModel.class);
         loadInitialData();
+        Progress();
+    }
+
+    private void Progress()
+    {
+        ProgressFragment progressFragment = new ProgressFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, progressFragment, TAG_SPLASH_SCREEN_FRAGMENT)
+                .commit();
     }
 
     private void loadInitialData(){
