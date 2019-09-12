@@ -12,9 +12,9 @@ the service without rate limiting. <br>
 </p><br>
 
 # Features:
-• Shows a grid of pictures, starting from the current day. <br>
-• When a picture is clicked, the picture along with explanation are provided. <br>
-• When a picture is clicked, a full view of the picture is provided, where user can pan and zoom the image.<br>
-• The user can slide through the photos while in “viewer mode”.<br>
-• The app works offline for images that have already been viewed by the user.<br>
-• The app does not re-request the API for a picture that has already been fetched in the past and hence saving data.<br>
+•  Shows a grid of pictures, starting from the current day. <br><br>
+•  When a picture is clicked, the picture along with explanation are provided. <br><br>
+•  When a picture is clicked, a full view of the picture is provided, where user can pan and zoom the image.<br><br>
+•  The user can slide through the photos while in “viewer mode”.<br><br>
+•  The app works offline for images that have already been viewed by the user.<br><br>
+•  The app does not re-request the API for a picture that has already been fetched in the past and hence saving data.<br><br>
