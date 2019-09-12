@@ -1,5 +1,6 @@
 package app.pranavjayaraj.apod.UI;
 import android.arch.lifecycle.ViewModelProviders;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.transition.Fade;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import app.pranavjayaraj.apod.R;
+import app.pranavjayaraj.apod.UI.ViewPager.APODViewPager;
 import app.pranavjayaraj.apod.ViewModel.VModel;
 import app.pranavjayaraj.apod.ViewModel.ViewModelCallbacks;
 
@@ -16,6 +17,8 @@ import app.pranavjayaraj.apod.ViewModel.ViewModelCallbacks;
 public class MainActivity extends AppCompatActivity implements FragmentChangeListener{
     private static final String TAG_PICTURE_LIST_FRAGMENT = "tag_picture_list_fragment";
     private static final String TAG_PICTURE_DETAIL_FRAGMENT = "tag_picture_detail_fragment";
+    private static final String TAG_VIEW_PAGER_FRAGMENT = "tag_view_pager_fragment";
+
     private VModel mVModel;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -29,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     private void loadInitialData(){
         mVModel.loadInitialData(new ViewModelCallbacks() {
             @Override
-            public void onResponse(String message) {
+            public void onResponse(String message)
+            {
                 attachPictureListFragment();
                 Log.d("FLOW TEST", "ON RESPONSE RECEIVED IN MAINACTIVITY: " + message);
             }
@@ -37,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
             @Override
             public void onFailure(Throwable throwable) {
                 throwable.printStackTrace();
+                Looper.prepare();
+                attachPictureListFragment();
                 Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_LONG)
                         .show();
                 Log.d("FLOW TEST", "ON FAILURE RECEIVED IN MAINACTIVITY: " + throwable.getMessage());
@@ -52,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
 
         Bundle args = new Bundle();
         apodListFragment.setArguments(args);
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container,
@@ -97,20 +102,19 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     }
 
     @Override
-    public void attachImageView(String url, ImageView sharedImageView) {
-        APODImageView apodImageView = new APODImageView();
-        apodImageView.setEnterTransition(new Fade());
+    public void attachImageView(int position, ImageView sharedImageView) {
+        mVModel.setCurrentPosition(position);
+        mVModel.setHasAccessedViewPager(true);
 
-        Bundle args = new Bundle();
-        args.putString(APODImageView.EXTRA_KEY_IMAGE_URL,url);
-        apodImageView.setArguments(args);
-
+       APODViewPager viewPager = new APODViewPager();
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left, android.R.anim.fade_in, android.R.anim.fade_out)
                 .replace(R.id.fragment_container,
-                        apodImageView,
-                        APODImageView.class.getSimpleName())
-                .addToBackStack(TAG_PICTURE_LIST_FRAGMENT)
+                        viewPager,
+                        APODViewPager.class.getSimpleName())
+                .addToBackStack(TAG_VIEW_PAGER_FRAGMENT)
                 .commit();
     }
+
 }

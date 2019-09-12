@@ -16,6 +16,6 @@
         android:id="@+id/pb_loading_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|top|end"/>
+        android:layout_gravity="center"/>
 
 </FrameLayout>

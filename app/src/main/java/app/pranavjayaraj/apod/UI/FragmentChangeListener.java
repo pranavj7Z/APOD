@@ -3,13 +3,13 @@ package app.pranavjayaraj.apod.UI;
 import android.widget.ImageView;
 
 /**
- * Created by kuttanz on 10/9/19.
+ * Created by Pranav on 10/9/19.
  */
 
-interface FragmentChangeListener {
+public interface FragmentChangeListener {
 
     void attachDetailAPOD (int clickedPosition, ImageView sharedImageView);
 
-    void attachImageView(String url, ImageView sharedImageView);
+    void attachImageView(int clickedPosition, ImageView sharedImageView);
 
 }

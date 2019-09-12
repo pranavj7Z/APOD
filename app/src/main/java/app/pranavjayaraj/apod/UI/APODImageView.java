@@ -1,30 +1,39 @@
 package app.pranavjayaraj.apod.UI;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.transition.TransitionInflater;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
+import app.pranavjayaraj.apod.Model.Image;
 import app.pranavjayaraj.apod.R;
 import app.pranavjayaraj.apod.Util.NetworkUtil;
+import app.pranavjayaraj.apod.ViewModel.VModel;
 
 /**
  * Created by kuttanz on 11/9/19.
  */
 
-public class APODImageView extends android.support.v4.app.Fragment{
+public class APODImageView extends android.support.v4.app.Fragment
+{
     public static final String EXTRA_KEY_IMAGE_URL = "extra_key_image_url";
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 1;
-
     private PhotoView mFullScreenPhotoView;
-    private String mImageUrl;
+    private int mPosition;
+    private String URL;
+    private VModel mSharedViewModel;
 
 
     @Override
@@ -60,13 +69,24 @@ public class APODImageView extends android.support.v4.app.Fragment{
         mFullScreenPhotoView = view.findViewById(R.id.pv_picture_fullscreen);
 
         if(getArguments() != null){
-            mImageUrl = getArguments().getString(EXTRA_KEY_IMAGE_URL);
-            mImageUrl = NetworkUtil.validateUrl(mImageUrl);
+            mPosition = getArguments().getInt(EXTRA_KEY_IMAGE_URL);
+            connectViewModel();
         }
 
-        Picasso.get().load(mImageUrl).fit().centerInside().into(mFullScreenPhotoView);
 
         return view;
 
 }
+
+    private void connectViewModel(){
+        mSharedViewModel = ViewModelProviders.of(getActivity()).get(VModel.class);
+        mSharedViewModel.getPictureList().observe(this, new Observer<List<Image>>() {
+            @Override
+            public void onChanged(@Nullable List<Image> pictureList) {
+                URL = NetworkUtil.validateUrl(pictureList.get(mPosition).getUrl());
+        Picasso.get().load(URL).fit().centerInside().into(mFullScreenPhotoView);
+            }
+        });
+    }
+
 }

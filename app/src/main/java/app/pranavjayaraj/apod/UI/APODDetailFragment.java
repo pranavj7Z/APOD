@@ -23,7 +23,7 @@ import app.pranavjayaraj.apod.Util.NetworkUtil;
 import app.pranavjayaraj.apod.ViewModel.VModel;
 
 /**
- * Created by kuttanz on 11/9/19.
+ * Created by Pranav on 11/9/19.
  */
 public class APODDetailFragment extends Fragment {
 
@@ -87,8 +87,8 @@ public class APODDetailFragment extends Fragment {
         mDetailPictureImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = pictureList.get(mPosition).getUrl();
-                fragmentChangeListener.attachImageView(url, mDetailPictureImageView);
+                int position = mPosition;
+                fragmentChangeListener.attachImageView(position, mDetailPictureImageView);
             }
         });
     }

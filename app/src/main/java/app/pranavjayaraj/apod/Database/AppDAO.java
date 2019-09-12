@@ -17,8 +17,8 @@ public interface AppDAO {
     @Query("SELECT * FROM picture")
     LiveData<List<Image>> getAll();
 
-    @Query("SELECT * FROM picture WHERE date LIKE :queryDate")
-    Image getPictureByDate(String queryDate);
+    @Query("SELECT * FROM picture")
+    List<Image> getAl();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Image> pictureList);

@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +16,13 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 import android.support.v7.recyclerview.extensions.ListAdapter;
+
+import javax.inject.Inject;
+
 import app.pranavjayaraj.apod.Model.Image;
 import app.pranavjayaraj.apod.R;
+import app.pranavjayaraj.apod.Repository.Repository;
+import app.pranavjayaraj.apod.UI.Adapter.APODListAdapter;
 import app.pranavjayaraj.apod.ViewModel.VModel;
 
 /**
@@ -35,6 +38,9 @@ public class APODListFragment extends Fragment {
     private ListAdapter mListAdapter;
     private String lastVisibleDate;
     private boolean isLoadingMoreData;
+
+    @Inject
+    public Repository repository;
 
     @Override
     public void onResume() {
@@ -63,9 +69,7 @@ public class APODListFragment extends Fragment {
         mProgressBar = view.findViewById(R.id.pb_loading_list);
 
         connectRecyclerView(view);
-
         connectViewModel();
-
         return view;
     }
 

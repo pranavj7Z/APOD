@@ -1,5 +1,4 @@
-package app.pranavjayaraj.apod.UI;
-
+package app.pranavjayaraj.apod.UI.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
-
 import app.pranavjayaraj.apod.Model.Image;
 import app.pranavjayaraj.apod.R;
+import app.pranavjayaraj.apod.Repository.Repository;
+import app.pranavjayaraj.apod.UI.FragmentChangeListener;
+import app.pranavjayaraj.apod.UI.MainActivity;
 import app.pranavjayaraj.apod.Util.NetworkUtil;
 
 /**
@@ -23,9 +24,10 @@ import app.pranavjayaraj.apod.Util.NetworkUtil;
 
 public class APODListAdapter extends android.support.v7.recyclerview.extensions.ListAdapter<Image, APODListAdapter.ViewHolder> {
     private Context mContext;
+    Repository repository;
     private FragmentChangeListener mFragmentChangeListener;
 
-    protected APODListAdapter(Context context, @NonNull DiffUtil.ItemCallback<Image> diffCallback) {
+    public APODListAdapter(Context context, @NonNull DiffUtil.ItemCallback<Image> diffCallback) {
         super(diffCallback);
         mContext = context;
         mFragmentChangeListener = (MainActivity) context;
@@ -67,4 +69,17 @@ public class APODListAdapter extends android.support.v7.recyclerview.extensions.
             mPictureImageView = itemView.findViewById(R.id.iv_picture);
         }
     }
+
+    @Override
+    public long getItemId(int position)
+    {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position)
+    {
+        return 1;
+    }
+
 }

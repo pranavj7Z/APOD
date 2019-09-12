@@ -17,8 +17,6 @@ import app.pranavjayaraj.apod.Model.Image;
 import app.pranavjayaraj.apod.Repository.Repository;
 import app.pranavjayaraj.apod.Repository.RepositoryCallbacks;
 
-import static app.pranavjayaraj.apod.Injection.DaggerAppComponent.*;
-
 /**
  * Created by Pranav.
  */
@@ -41,9 +39,22 @@ public class VModel extends AndroidViewModel {
                 .build()
                 .inject(this);
 
-        repository.clearDatabase();
+    }
+    public int getCurrentPosition(){
+        return mCurrentPosition;
     }
 
+    public void setCurrentPosition(int currentPosition){
+        mCurrentPosition = currentPosition;
+    }
+
+    public boolean hasAccessedViewPager() {
+        return mHasAccessedViewPager;
+    }
+
+    public void setHasAccessedViewPager(boolean mHasAccessedViewPager) {
+        this.mHasAccessedViewPager = mHasAccessedViewPager;
+    }
 
     public LiveData<List<Image>> getPictureList() {
         if(mPictureList == null){
